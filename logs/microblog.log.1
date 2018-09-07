@@ -1,0 +1,123 @@
+2018-09-07 10:17:51,507 INFO: Microblog startup [in C:\Python\Flask\base\app\__init__.py:36]
+2018-09-07 10:27:51,711 INFO: Microblog startup [in C:\python\flask\base\app\__init__.py:36]
+2018-09-07 10:34:07,706 INFO: Microblog startup [in C:\python\flask\base\app\__init__.py:36]
+2018-09-07 11:56:25,322 INFO: Microblog startup [in C:\python\flask\base\app\__init__.py:38]
+2018-09-07 12:00:03,081 INFO: Microblog startup [in C:\python\flask\base\app\__init__.py:38]
+2018-09-07 12:00:29,885 INFO: Microblog startup [in C:\python\flask\base\app\__init__.py:38]
+2018-09-07 12:01:31,309 INFO: Microblog startup [in C:\python\flask\base\app\__init__.py:38]
+2018-09-07 12:04:54,847 INFO: Microblog startup [in C:\python\flask\base\app\__init__.py:38]
+2018-09-07 12:22:09,031 INFO: Microblog startup [in C:\python\flask\base\app\__init__.py:38]
+2018-09-07 12:22:39,097 INFO: Microblog startup [in C:\python\flask\base\app\__init__.py:38]
+2018-09-07 12:23:29,975 INFO: Microblog startup [in C:\python\flask\base\app\__init__.py:38]
+2018-09-07 12:23:45,107 INFO: Microblog startup [in C:\python\flask\base\app\__init__.py:38]
+2018-09-07 12:25:47,104 INFO: Microblog startup [in C:\python\flask\base\app\__init__.py:38]
+2018-09-07 12:25:55,070 ERROR: Exception on /login [GET] [in c:\anaconda3\lib\site-packages\flask\app.py:1560]
+Traceback (most recent call last):
+  File "c:\anaconda3\lib\site-packages\flask\app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\anaconda3\lib\site-packages\flask\app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\anaconda3\lib\site-packages\flask\app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "c:\anaconda3\lib\site-packages\flask\_compat.py", line 33, in reraise
+    raise value
+  File "c:\anaconda3\lib\site-packages\flask\app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\anaconda3\lib\site-packages\flask\app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\python\flask\base\app\routes.py", line 70, in login
+    return render_template('login.html', title='Sign In', form = form)
+  File "c:\anaconda3\lib\site-packages\flask\templating.py", line 134, in render_template
+    context, ctx.app)
+  File "c:\anaconda3\lib\site-packages\flask\templating.py", line 116, in _render
+    rv = template.render(context)
+  File "c:\anaconda3\lib\site-packages\jinja2\asyncsupport.py", line 76, in render
+    return original_render(self, *args, **kwargs)
+  File "c:\anaconda3\lib\site-packages\jinja2\environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "c:\anaconda3\lib\site-packages\jinja2\environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "c:\anaconda3\lib\site-packages\jinja2\_compat.py", line 37, in reraise
+    raise value.with_traceback(tb)
+  File "C:\python\flask\base\app\templates\login.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "C:\python\flask\base\app\templates\base.html", line 1, in top-level template code
+    {% extends 'bootstrap/base.html' %}
+  File "c:\anaconda3\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 1, in top-level template code
+    {% block doc -%}
+  File "c:\anaconda3\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 4, in block "doc"
+    {%- block html %}
+  File "c:\anaconda3\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 20, in block "html"
+    {% block body -%}
+  File "c:\anaconda3\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 21, in block "body"
+    {% block navbar %}
+  File "C:\python\flask\base\app\templates\base.html", line 27, in block "navbar"
+    -- <li><a href="{{ url_for('explore') }}">Explore</a></li>
+  File "c:\anaconda3\lib\site-packages\flask\helpers.py", line 333, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+  File "c:\anaconda3\lib\site-packages\flask\app.py", line 1805, in handle_url_build_error
+    reraise(exc_type, exc_value, tb)
+  File "c:\anaconda3\lib\site-packages\flask\_compat.py", line 33, in reraise
+    raise value
+  File "c:\anaconda3\lib\site-packages\flask\helpers.py", line 323, in url_for
+    force_external=external)
+  File "c:\anaconda3\lib\site-packages\werkzeug\routing.py", line 1768, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'explore'. Did you mean 'edit_profile' instead?
+2018-09-07 12:28:40,528 INFO: Microblog startup [in C:\python\flask\base\app\__init__.py:38]
+2018-09-07 12:35:32,826 ERROR: Exception on /index [GET] [in c:\anaconda3\lib\site-packages\flask\app.py:1560]
+Traceback (most recent call last):
+  File "c:\anaconda3\lib\site-packages\flask\app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\anaconda3\lib\site-packages\flask\app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\anaconda3\lib\site-packages\flask\app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "c:\anaconda3\lib\site-packages\flask\_compat.py", line 33, in reraise
+    raise value
+  File "c:\anaconda3\lib\site-packages\flask\app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\anaconda3\lib\site-packages\flask\app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "c:\anaconda3\lib\site-packages\flask_login\utils.py", line 261, in decorated_view
+    return func(*args, **kwargs)
+  File "C:\python\flask\base\app\routes.py", line 29, in index
+    return render_template('index.html', title = "Home",form=None )
+  File "c:\anaconda3\lib\site-packages\flask\templating.py", line 134, in render_template
+    context, ctx.app)
+  File "c:\anaconda3\lib\site-packages\flask\templating.py", line 116, in _render
+    rv = template.render(context)
+  File "c:\anaconda3\lib\site-packages\jinja2\asyncsupport.py", line 76, in render
+    return original_render(self, *args, **kwargs)
+  File "c:\anaconda3\lib\site-packages\jinja2\environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "c:\anaconda3\lib\site-packages\jinja2\environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "c:\anaconda3\lib\site-packages\jinja2\_compat.py", line 37, in reraise
+    raise value.with_traceback(tb)
+  File "C:\python\flask\base\app\templates\index.html", line 3, in top-level template code
+    {% import 'bootstrap/wtf.html' as wtf %}
+  File "C:\python\flask\base\app\templates\base.html", line 1, in top-level template code
+    {% extends 'bootstrap/base.html' %}
+  File "c:\anaconda3\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 1, in top-level template code
+    {% block doc -%}
+  File "c:\anaconda3\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 4, in block "doc"
+    {%- block html %}
+  File "c:\anaconda3\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 20, in block "html"
+    {% block body -%}
+  File "c:\anaconda3\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 21, in block "body"
+    {% block navbar %}
+  File "C:\python\flask\base\app\templates\base.html", line 42, in block "navbar"
+    <li><a href="{{ url_for('user', username=current_user.username) }}">Profile</a></li>
+  File "c:\anaconda3\lib\site-packages\flask\helpers.py", line 333, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+  File "c:\anaconda3\lib\site-packages\flask\app.py", line 1805, in handle_url_build_error
+    reraise(exc_type, exc_value, tb)
+  File "c:\anaconda3\lib\site-packages\flask\_compat.py", line 33, in reraise
+    raise value
+  File "c:\anaconda3\lib\site-packages\flask\helpers.py", line 323, in url_for
+    force_external=external)
+  File "c:\anaconda3\lib\site-packages\werkzeug\routing.py", line 1768, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'user' with values ['username']. Did you mean 'register' instead?
+2018-09-07 12:42:53,311 INFO: Microblog startup [in C:\python\flask\base\app\__init__.py:38]

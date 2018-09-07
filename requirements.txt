@@ -1,0 +1,15 @@
+flask 
+
+flask_login
+
+flask_sqlalchemy 
+
+flask_migrate
+
+flask_mail 
+
+flask_wtf
+
+
+flask_bootstrap
+jwt
