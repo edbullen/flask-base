@@ -138,7 +138,7 @@ def users():
 
     next_url = url_for('users', page=users.next_num) \
         if users.has_next else None
-    prev_url = url_for('explore', page=posts.prev_num) \
+    prev_url = url_for('users', page=users.prev_num) \
         if users.has_prev else None
 
     return render_template("users.html", title='Users',
