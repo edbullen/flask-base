@@ -77,10 +77,27 @@ def register():
 @login_required
 def user(username):
     user = User.query.filter_by(username = username).first_or_404()
-
     page = request.args.get('page', 1, type=int)
-
     return render_template('user.html', user=user)
+
+@app.route('/edit_profile2/<username>', methods=['GET','POST'])
+@login_required
+def edit_profile2(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    form = EditProfileForm(user.username)
+    if form.validate_on_submit():
+        user.username = form.username.data
+        user.about_me = form.about_me.data
+        user.email = form.email.data
+        db.session.commit()
+        flash('Your changes have been saved.')
+        return redirect(url_for('edit_profile2', username = user.username))
+    elif request.method == 'GET':
+        form.username.data = user.username
+        form.about_me.data = user.about_me
+        form.email.data = user.email
+    return render_template('edit_profile.html', title='Edit Profile',
+                           form=form)
 
 @app.route('/edit_profile', methods=['GET','POST'])
 @login_required
