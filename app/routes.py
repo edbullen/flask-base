@@ -129,6 +129,20 @@ def reset_password(token):
         return redirect(url_for('login'))
     return render_template('reset_password.html', form=form)
 
+@app.route('/users')
+@login_required
+def users():
+    page = request.args.get('page', 1, type=int)
+    users = User.query.order_by(User.username.desc()).paginate(
+                   page, app.config['POSTS_PER_PAGE'], False)
+
+    next_url = url_for('users', page=users.next_num) \
+        if users.has_next else None
+    prev_url = url_for('explore', page=posts.prev_num) \
+        if users.has_prev else None
+
+    return render_template("users.html", title='Users',
+                            users=users.items, next_url=next_url,prev_url=prev_url)
 
 """
 @app.route('/explore')
