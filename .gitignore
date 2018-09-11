@@ -1,0 +1,6 @@
+*.pyc
+*.log
+*.BAK
+logs/
+migrations/
+
