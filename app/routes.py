@@ -85,10 +85,14 @@ def user(username):
 def edit_profile2(username):
     user = User.query.filter_by(username=username).first_or_404()
     form = EditProfileForm(user.username)
+    boolmapper = {False:0, True:1}    #Map boolean back to 1/0 to store in database
     if form.validate_on_submit():
         user.username = form.username.data
         user.about_me = form.about_me.data
         user.email = form.email.data
+
+        user.isAdmin = boolmapper[form.isadmin.data]
+        user.isAuth = boolmapper[form.isauth.data]
         db.session.commit()
         flash('Your changes have been saved.')
         return redirect(url_for('edit_profile2', username = user.username))
@@ -96,9 +100,13 @@ def edit_profile2(username):
         form.username.data = user.username
         form.about_me.data = user.about_me
         form.email.data = user.email
+        if (user.isAdmin):
+           form.isadmin.data = user.isAdmin
+           form.isauth.data = user.isAuth
     return render_template('edit_profile.html', title='Edit Profile',
                            form=form)
 
+"""
 @app.route('/edit_profile', methods=['GET','POST'])
 @login_required
 def edit_profile():
@@ -116,6 +124,7 @@ def edit_profile():
         form.email.data = current_user.email
     return render_template('edit_profile.html', title='Edit Profile',
                            form=form)
+"""
 
 @app.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():

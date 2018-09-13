@@ -31,6 +31,9 @@ class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     about_me = TextAreaField('About me', validators=[Length(min=0, max=140)])
     email = StringField('email', validators=[DataRequired(), Email()])
+    # additional options for Admin and Super users
+    isadmin = BooleanField('isAdmin')
+    isauth = BooleanField('isAuth')
     submit = SubmitField('Submit')
 
     def __init__(self, original_username, *args, **kwargs):
