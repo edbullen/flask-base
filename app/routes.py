@@ -98,11 +98,11 @@ def edit_profile(username):
         form.username.data = user.username
         form.about_me.data = user.about_me
         form.email.data = user.email
-        if (user.isAdmin):
-           form.isadmin.data = user.isAdmin
-           form.isauth.data = user.isAuth
-    return render_template('edit_profile.html', title='Edit Profile',
-                           form=form)
+        #if (user.isAdmin == 1) or (user.isSuper == 1):
+        form.isadmin.data = user.isAdmin
+        form.isauth.data = user.isAuth
+        return render_template('edit_profile.html', title='Edit Profile', form=form)
+    return render_template('edit_profile.html', title='Edit Profile', form=form)
 
 @app.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
