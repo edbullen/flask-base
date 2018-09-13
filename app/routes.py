@@ -29,7 +29,6 @@ def index():
     return render_template('index.html', title = "Home",form=None )
 
 
-
 @app.before_request
 def before_request():
     if current_user.is_authenticated: 
@@ -72,7 +71,6 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
-
 @app.route('/user/<username>')
 @login_required
 def user(username):
@@ -80,9 +78,9 @@ def user(username):
     page = request.args.get('page', 1, type=int)
     return render_template('user.html', user=user)
 
-@app.route('/edit_profile2/<username>', methods=['GET','POST'])
+@app.route('/edit_profile/<username>', methods=['GET','POST'])
 @login_required
-def edit_profile2(username):
+def edit_profile(username):
     user = User.query.filter_by(username=username).first_or_404()
     form = EditProfileForm(user.username)
     boolmapper = {False:0, True:1}    #Map boolean back to 1/0 to store in database
@@ -95,7 +93,7 @@ def edit_profile2(username):
         user.isAuth = boolmapper[form.isauth.data]
         db.session.commit()
         flash('Your changes have been saved.')
-        return redirect(url_for('edit_profile2', username = user.username))
+        return redirect(url_for('edit_profile', username = user.username))
     elif request.method == 'GET':
         form.username.data = user.username
         form.about_me.data = user.about_me
@@ -105,26 +103,6 @@ def edit_profile2(username):
            form.isauth.data = user.isAuth
     return render_template('edit_profile.html', title='Edit Profile',
                            form=form)
-
-"""
-@app.route('/edit_profile', methods=['GET','POST'])
-@login_required
-def edit_profile():
-    form = EditProfileForm(current_user.username)
-    if form.validate_on_submit():
-        current_user.username = form.username.data
-        current_user.about_me = form.about_me.data
-        current_user.email = form.email.data
-        db.session.commit()
-        flash('Your changes have been saved.')
-        return redirect(url_for('edit_profile'))
-    elif request.method == 'GET':
-        form.username.data = current_user.username
-        form.about_me.data = current_user.about_me
-        form.email.data = current_user.email
-    return render_template('edit_profile.html', title='Edit Profile',
-                           form=form)
-"""
 
 @app.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
