@@ -34,6 +34,10 @@ def before_request():
     if current_user.is_authenticated: 
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
+        #This section ensures a non-Authorised user can't progress beyond the main index
+        if current_user.isAuth == 0:
+            if request.path != url_for('index') and request.path != url_for('logout') :
+                return redirect(url_for('index'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -75,7 +79,7 @@ def register():
 @login_required
 def user(username):
     user = User.query.filter_by(username = username).first_or_404()
-    datestring = datetime.strftime(user.last_seen, "%A %d %b %Y at %H:%M")
+    datestring = datetime.strftime(user.last_seen, "%A %d %b %Y at %H:%M UTC")
     page = request.args.get('page', 1, type=int)
     return render_template('user.html', user=user, datestring=datestring)
 

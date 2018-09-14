@@ -4,54 +4,66 @@
 
 {% block app_content %}
     <!-- <h1>Hi, {{ current_user.username }}!</h1> -->
-    {% if form %}
 
-    <form action=""  method="post">
-    {{ form.hidden_tag() }}
-    <p>
+    {% if current_user.isAuth == 1 %}
 
-    {{ wtf.quick_form(form, form_type="horizontal", horizontal_columns=('lg', 2, 8)) }}
-    <br>
-  
-    </form>
-    {% endif %}
+        {% if form %}
 
-     <div class="jumbotron">
-         <h1>Heading</h1>
-         <h3> Some descriptive text</h3>
-         <div class = "pull-left">
-              <a class="btn btn-info btn-large" href="/entry.id">SELECT</a>
+        <form action=""  method="post">
+        {{ form.hidden_tag() }}
+        <p>
+        {{ wtf.quick_form(form, form_type="horizontal", horizontal_columns=('lg', 2, 8)) }}
+        <br>
+
+        </form>
+        {% endif %}
+
+         <div class="jumbotron">
+             <h1>Heading</h1>
+             <h3> Some descriptive text</h3>
+             <div class = "pull-left">
+                  <a class="btn btn-info btn-large" href="/entry.id">SELECT</a>
+             </div>
          </div>
-     </div>
 
-     <div class="jumbotron">
-         <h1>Heading</h1>
-         <h3> Some descriptive text</h3>
-         <div class = "pull-left">
-              <a class="btn btn-success btn-large" href="/entry.id">SELECT</a>
+         <div class="jumbotron">
+             <h1>Heading</h1>
+             <h3> Some descriptive text</h3>
+             <div class = "pull-left">
+                  <a class="btn btn-success btn-large" href="/entry.id">SELECT</a>
+             </div>
          </div>
-     </div>
 
 
-     <div class="well">
-        <h2>Option1</h2>
-          <div class="row">
-            <div class="col-md-3">
-               <div></div>
-            </div>
-            <div class="col-md-3">
-               <div>Sub-Note: <b> Sub-Note </b></div>
-            </div>
-            <div class="col-md-3">
-               <div>Sub-Note: <b> Sub-Note</b></div>
-            </div>
-            <div class="col-md-3">
-                <div class="pull-right">
-                    <a class="btn btn-danger btn-large" href="/entry.id">SELECT</a>
+         <div class="well">
+            <h2>Option1</h2>
+              <div class="row">
+                <div class="col-md-3">
+                   <div></div>
                 </div>
-            </div>
-           </div>
-     </div>
+                <div class="col-md-3">
+                   <div>Sub-Note: <b> Sub-Note </b></div>
+                </div>
+                <div class="col-md-3">
+                   <div>Sub-Note: <b> Sub-Note</b></div>
+                </div>
+                <div class="col-md-3">
+                    <div class="pull-right">
+                        <a class="btn btn-danger btn-large" href="/entry.id">SELECT</a>
+                    </div>
+                </div>
+               </div>
+         </div>
 
+     {% else %}
+
+          <div class="alert alert-info">
+               <strong>User Not Authorised</strong> <br> <br>
+               Your log-in succeeded, but the administrator has not approved your account registration yet.  Please log-out.
+          </div>
+
+
+
+     {% endif %}
 
 {% endblock %}
