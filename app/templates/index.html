@@ -5,7 +5,7 @@
 {% block app_content %}
     <!-- <h1>Hi, {{ current_user.username }}!</h1> -->
 
-    {% if current_user.isAuth == 1 %}
+    {% if current_user.isAuth == 1 or current_user.isSuper == 1 %}
 
         {% if form %}
 

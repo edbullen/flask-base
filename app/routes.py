@@ -35,7 +35,7 @@ def before_request():
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
         #This section ensures a non-Authorised user can't progress beyond the main index
-        if current_user.isAuth == 0:
+        if current_user.isAuth == 0 and current_user.isSuper == 0:
             if request.path != url_for('index') and request.path != url_for('logout') :
                 return redirect(url_for('index'))
 
@@ -89,17 +89,21 @@ def edit_profile(username):
     user = User.query.filter_by(username=username).first_or_404()
     form = EditProfileForm(user.username)
     boolmapper = {False:0, True:1}    #Map boolean back to 1/0 to store in database
+    isauthOrig = user.isAuth          # bug-fix for non-Admin user editing profile - don't reset this flag
     if form.validate_on_submit():
         user.username = form.username.data
         user.about_me = form.about_me.data
         user.email = form.email.data
-
+        datestring = datetime.strftime(user.last_seen, "%A %d %b %Y at %H:%M UTC")
         user.isAdmin = boolmapper[form.isadmin.data]
-        user.isAuth = boolmapper[form.isauth.data]
+        if current_user.isAdmin == 1:
+            user.isAuth = boolmapper[form.isauth.data]
+        else:
+            user.isAuth = isauthOrig
         db.session.commit()
         flash('Your changes have been saved.')
         #return redirect(url_for('edit_profile', username = user.username))
-        return render_template('user.html', user=user)
+        return render_template('user.html', user=user, datestring=datestring)
     elif request.method == 'GET':
         form.username.data = user.username
         form.about_me.data = user.about_me
