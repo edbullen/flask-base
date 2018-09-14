@@ -25,9 +25,9 @@ from app import models
 from app import errors
 
 if not app.debug:
-    if not os.path.exists('logs'):
-        os.mkdir('logs')
-    file_handler = RotatingFileHandler('logs/microblog.log', maxBytes=10240,
+    if not os.path.exists(app.config['LOG_DIR']):
+        os.mkdir(app.config['LOG_DIR'])
+    file_handler = RotatingFileHandler(app.config['LOG_DIR'] +"/"+ app.config['LOG_NAME'], maxBytes=10240,
                                        backupCount=10)
     file_handler.setFormatter(logging.Formatter(
         '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
@@ -35,4 +35,4 @@ if not app.debug:
     app.logger.addHandler(file_handler)
 
     app.logger.setLevel(logging.INFO)
-    app.logger.info('Microblog startup')
+    app.logger.info('Flask Web Application Startup')
