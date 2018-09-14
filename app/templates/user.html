@@ -1,29 +1,37 @@
 {% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
 
 {% block app_content %}
-
 
     <table class="table">
         <tr valign="top">
             <td width="256px"> <img src="{{ user.avatar(128) }}"></td>
             <td>
 		    <h1>User: {{ user.username }} </h1>
-		    Email: {{ user.email }}
 
-            {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
-            {% if user.last_seen %}<p>Last seen on: {{ user.last_seen }}</p>{% endif %}
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>Profile</h4></div>
+                <div class="panel-body">
 
-            <p>Super-User: {% if user.isSuper == 1 %}
-                              Yes {% else %} No {% endif %}
-            </p>
-            <p>Admin-User: {% if user.isAdmin == 1 %}
-                              Yes {% else %} No {% endif %}
-            </p>
-            <p>Authorised User: {% if user.isAuth == 1 %}
-                              Yes {% else %} No {% endif %}
-            </p>
+                    {% if user.about_me %}
+                        {{ user.about_me }}
+                    {% else %}
+                         (no information provided)
+                    {% endif %}
+                    <br><br>
+                    email: {{ user.email}}
+                </div>
 
+            </div>
 
+            <p>Last seen on: {{ datestring }} </p>
+
+            {% if user.isAdmin == 1 %}
+                <span class="label label-success">Admin User</span>
+            {% endif %}
+            {% if user.isAuth == 0 %}
+                <span class="label label-danger">Not Authorised</span>
+            {% endif %}
             </td>
         </tr>
     </table>

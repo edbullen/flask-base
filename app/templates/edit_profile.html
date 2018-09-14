@@ -1,46 +1,32 @@
 {% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
 
 {% block app_content %}
+
     <h1>Edit Profile - {{ form.username.data }} </h1>
-    <form action="" method="post">
+
+    <form action=""  method="post">
+
+    <div class="col-md-6">
         {{ form.hidden_tag() }}
 
-        <p>
-            {{ form.username(size=32) }}<br>
-            {% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
+        {{ form.username(size=32) }}
+        <!--{{  wtf.form_field(form.username) }} -->
 
+        {{  wtf.form_field(form.about_me  ) }}
 
-        <p>
-            {{ form.about_me.label }}<br>
-            {{ form.about_me(cols=50, rows=4) }}<br>
-            {% for error in form.about_me.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-
-        <p>
-            {{ form.email.label }}<br>
-            {{ form.email(size=32) }}<br>
-            {% for error in form.email.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
+        <div style="width: 50%">
+        {{  wtf.form_field(form.email) }}
+        </div>
 
         {% if current_user.isSuper == 1 or current_user.isAdmin == 1   %}
-            <p>
-                 {{ form.isadmin.label }}<br>
-                 {{ form.isadmin }}<br>
-             </p>
-             <p>
-                 {{ form.isauth.label }}<br>
-                 {{ form.isauth }}<br>
-             </p>
-         {% endif %}
+            {{  wtf.form_field(form.isadmin) }}
+            {{  wtf.form_field(form.isauth) }}
+        {% endif %}
+        <input class="btn btn-primary" type="submit" value="Submit">
 
-        <p>{{ form.submit() }}</p>
+    </div>
 
     </form>
+
 {% endblock %}
