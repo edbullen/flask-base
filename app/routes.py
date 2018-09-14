@@ -90,13 +90,18 @@ def edit_profile(username):
     form = EditProfileForm(user.username)
     boolmapper = {False:0, True:1}    #Map boolean back to 1/0 to store in database
     isauthOrig = user.isAuth          # bug-fix for non-Admin user editing profile - don't reset this flag
+
+    # if we are editing someone else's profile, need to bounce them to the /index
+    if current_user.username != username and (current_user.isAdmin != 1 and current_user.isSuper != 1):
+        return redirect(url_for('index'))
+
     if form.validate_on_submit():
         user.username = form.username.data
         user.about_me = form.about_me.data
         user.email = form.email.data
         datestring = datetime.strftime(user.last_seen, "%A %d %b %Y at %H:%M UTC")
         user.isAdmin = boolmapper[form.isadmin.data]
-        if current_user.isAdmin == 1:
+        if current_user.isAdmin == 1 or current_user.isSuper:
             user.isAuth = boolmapper[form.isauth.data]
         else:
             user.isAuth = isauthOrig
