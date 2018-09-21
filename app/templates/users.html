@@ -3,49 +3,60 @@
 
 {% block app_content %}
 
-    {% for user in users %}
-        <!-- <table class="table table-hover">  -->
-        <table style="margin-left: 15px;">
+
+        <table class="table table-hover">
+        <!-- <table style="margin-left: 15px;"> -->
+        <thead>
+            <tr>
+                <th></th>
+                <th>User-Name</th>
+                <th>Super-User</th>
+                <th>Admin-User</th>
+                <th>Login-Auth</th>
+            <tr>
+        </thead>
+
+        {% for user in users %}
+
         <tr>
-            <td  width="70px">
+            <td >
                 <a href="{{ url_for('user', username=user.username) }}">
                    <img src="{{ user.avatar(35) }}" />
 		         </a>
-            </td>
-
-            <td width="140px">
-                 Super-User:
-                 {% if user.isSuper == 1 %}
-                     <span class="badge badge-info"> <font color="62f442">Yes </font>  </span>   {% else %}  <span class = "badge"> &nbsp No </span>
-                {% endif %}
-            </td>
-
-            <td width="100px">
-                 Admin:
-                 {% if user.isAdmin == 1 %}
-                     <span class="badge badge-info"> <font color="62f442">Yes </font>  </span>   {% else %}  <span class = "badge"> &nbsp No </span>
-                 {% endif %}
-            </td>
-
-            <td width="100px">
-                 Auth:
-                 {% if user.isAuth == 1 %}
-                     <span class="badge badge-info"> <font color="62f442">Yes </font>  </span>   {% else %}  <span class = "badge"> &nbsp No </span>
-                 {% endif %}
             </td>
 
             <td >
                 <a href="{{ url_for('user', username = user.username) }}">
                    {{ user.username }}
                 </a>
-
             </td>
 
 
+            <td >
+                 {% if user.isSuper == 1 %}
+                     <span class="badge badge-info"> <font color="62f442">Yes </font>  </span>   {% else %}  <span class = "badge"> &nbsp No </span>
+                {% endif %}
+            </td>
+
+            <td >
+                 {% if user.isAdmin == 1 %}
+                     <span class="badge badge-info"> <font color="62f442">Yes </font>  </span>   {% else %}  <span class = "badge"> &nbsp No </span>
+                 {% endif %}
+            </td>
+
+            <td >
+                 {% if user.isAuth == 1 %}
+                     <span class="badge badge-info"> <font color="62f442">Yes </font>  </span>   {% else %}  <span class = "badge"> &nbsp No </span>
+                 {% endif %}
+            </td>
+
 
         </tr>
+
+        {% endfor %}
+
         </table>
-    {% endfor %}
+
 
     <nav aria-label="Pagination">
         <ul class="pagination">
