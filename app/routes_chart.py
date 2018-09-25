@@ -241,3 +241,92 @@ def plotlybubble():
     layoutJSON = json.dumps(layout, cls=plotly.utils.PlotlyJSONEncoder)
 
     return render_template("plotlychart.html", graphJSON=graphJSON, layoutJSON=layoutJSON)
+
+
+@app.route('/plotlydual', methods=['GET'])
+@login_required
+def plotlydual():
+    x = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+         'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    y_2015 = [12, 15, 20, 17, 11, 21, 20, 19, 17, 16, 12, 19]
+    y_2016 = [18, 14, 20, 13, 17, 21, 19, 20, 19, 13, 12, 19]
+    y_2017 = [20, 14, 25, 16, 18, 22, 19, 15, 12, 16, 14, 17]
+
+
+    trace2015 = go.Bar(
+        x = x,
+        y = y_2015,
+        name='2015 Sales'
+    )
+    trace2016 = go.Bar(
+        x = x,
+        y = y_2016,
+        name='2016 Sales'
+    )
+    trace2017 = go.Bar(
+        x = x,
+        y = y_2017,
+        name='2017 Sales'
+    )
+
+    data = [trace2015, trace2016, trace2017]
+    layout = go.Layout(title='Yearly Sales', showlegend=False)
+
+    trace1 = go.Area(
+        r=[77.5, 72.5, 70.0, 45.0, 22.5, 42.5, 40.0, 62.5],
+        t=['North', 'N-E', 'East', 'S-E', 'South', 'S-W', 'West', 'N-W'],
+        name='11-14 m/s',
+        marker=dict(
+            color='rgb(106,81,163)'
+        )
+    )
+    trace2 = go.Area(
+        r=[57.49999999999999, 50.0, 45.0, 35.0, 20.0, 22.5, 37.5, 55.00000000000001],
+        t=['North', 'N-E', 'East', 'S-E', 'South', 'S-W', 'West', 'N-W'],
+        name='8-11 m/s',
+        marker=dict(
+            color='rgb(158,154,200)'
+        )
+    )
+    trace3 = go.Area(
+        r=[40.0, 30.0, 30.0, 35.0, 7.5, 7.5, 32.5, 40.0],
+        t=['North', 'N-E', 'East', 'S-E', 'South', 'S-W', 'West', 'N-W'],
+        name='5-8 m/s',
+        marker=dict(
+            color='rgb(203,201,226)'
+        )
+    )
+    trace4 = go.Area(
+        r=[20.0, 7.5, 15.0, 22.5, 2.5, 2.5, 12.5, 22.5],
+        t=['North', 'N-E', 'East', 'S-E', 'South', 'S-W', 'West', 'N-W'],
+        name='< 5 m/s',
+        marker=dict(
+            color='rgb(242,240,247)'
+        )
+    )
+    data2 = [trace1, trace2, trace3, trace4]
+    layout2 = go.Layout(
+        title='Wind Speed Distribution in Laurel, NE',
+        font=dict(
+            size=16
+        ),
+        legend=dict(
+            font=dict(
+                size=16
+            )
+        ),
+        radialaxis=dict(
+            ticksuffix='%'
+        ),
+        orientation=270
+    )
+
+    # convert to JSON format
+    graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
+    layoutJSON = json.dumps(layout, cls=plotly.utils.PlotlyJSONEncoder)
+
+    #Chart 2
+    graphJSON2 = json.dumps(data2, cls=plotly.utils.PlotlyJSONEncoder)
+    layoutJSON2 = json.dumps(layout2, cls=plotly.utils.PlotlyJSONEncoder)
+
+    return render_template("plotlychart2.html", graphJSON=graphJSON, graphJSON2=graphJSON2, layoutJSON=layoutJSON, layoutJSON2=layoutJSON2)

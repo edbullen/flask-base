@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+
+    <div class="row justify-content-center">
+        <div class="col-xs-6">
+            <div id="chart"></div>
+        </div>
+
+        <div class="col-xs-6">
+            <div id="chart2"></div>
+        </div>
+    </div>
+
+
+<h4>Instructions</h4>
+ Highlight an area and select it to zoom in.  Double click to zoom  back out.
+<br> Click on the legend lablels (top-right) to add and remove detail.
+<br> Mouse-over points for data-point annotations.
+
+
+    <!-- D3.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- Plotly.js -->
+    <script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
+ 
+    <script type="text/javascript">
+         
+        var graphs = {{graphJSON | safe}};
+        var layout = {{layoutJSON | safe}};
+
+        var graphs2 = {{graphJSON2 | safe}};
+        var layout2 = {{layoutJSON2 | safe}};
+        
+        Plotly.plot('chart',graphs, layout, {'displayModeBar': false, 'showLink':false});
+        Plotly.plot('chart2',graphs2, layout2, {'displayModeBar': false, 'showLink':false});
+
+    </script>
+ 
+
+{% endblock %}
