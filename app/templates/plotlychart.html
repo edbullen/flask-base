@@ -1,19 +1,23 @@
 {% extends "base.html" %}
 
-
 {% block app_content %}
+<style type="text/css">
+    .wll.custom-well {
+      padding: 0 50px;
+    }
+</style>
 
 
-    <div id="chart" >
+    <div id="chart">
     </div>
 
 
-<div class="well">
-Instructions for using the controls (zoom, select etc) go here
-</div>
- 
+<h4>Instructions</h4>
+ Highlight an area and select it to zoom in.  Double click to zoom  back out.
+<br> Click on the legend lablels (top-right) to add and remove detail.
+<br> Mouse-over points for data-point annotations.
 
- 
+
     <!-- D3.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -23,9 +27,10 @@ Instructions for using the controls (zoom, select etc) go here
     <script type="text/javascript">
          
         var graphs = {{graphJSON | safe}};
+        var layout = {{layoutJSON | safe}};
         
-        Plotly.plot('chart',graphs, {}, {'displayModeBar': false, 'showLink':false});
- 
+        Plotly.plot('chart',graphs, layout, {'displayModeBar': false, 'showLink':false});
+
     </script>
  
 

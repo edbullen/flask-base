@@ -57,16 +57,21 @@ def plotlyscatter():
         mode='lines',
         name='lines'
     )
-
     data = [trace0, trace1, trace2, ]
+
+    layout = go.Layout(
+        title='This is the Title',
+        xaxis=dict(title='X Title', tickangle=-45),
+        yaxis=dict(title='Y Title'),
+        autosize = False,
+        width = 850
+    )
+
     #convert to JSON format
     graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
-    #py.iplot(data, filename='scatter-mode')
-    #plt.savefig(lineimg, format='png')
+    layoutJSON = json.dumps(layout, cls=plotly.utils.PlotlyJSONEncoder)
 
-    #lineimg.seek(0)
-    #plot_url = base64.b64encode(lineimg.getvalue()).decode('ascii')
-    return render_template("plotlychart.html", graphJSON=graphJSON)
+    return render_template("plotlychart.html", graphJSON=graphJSON, layoutJSON=layoutJSON)
 
 @app.route('/plotlybar', methods=['GET'])
 @login_required
@@ -92,14 +97,17 @@ def plotlybar():
 
     data = [trace0, trace1]
     layout = go.Layout(
+        title = "Made up Sales Figures - 2017",
         xaxis=dict(tickangle=-45),
+        yaxis=dict(title="Sales"),
         barmode='group',
     )
 
     # convert to JSON format
     graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
+    layoutJSON = json.dumps(layout, cls=plotly.utils.PlotlyJSONEncoder)
 
-    return render_template("plotlychart.html", graphJSON=graphJSON)
+    return render_template("plotlychart.html", graphJSON=graphJSON, layoutJSON=layoutJSON)
 
 @app.route('/plotlybubble', methods=['GET'])
 @login_required
@@ -227,7 +235,9 @@ def plotlybubble():
         paper_bgcolor='rgb(243, 243, 243)',
         plot_bgcolor='rgb(243, 243, 243)',
     )
+
     # convert to JSON format
     graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
+    layoutJSON = json.dumps(layout, cls=plotly.utils.PlotlyJSONEncoder)
 
-    return render_template("plotlychart.html", graphJSON=graphJSON)
+    return render_template("plotlychart.html", graphJSON=graphJSON, layoutJSON=layoutJSON)
