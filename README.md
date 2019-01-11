@@ -157,7 +157,7 @@ Please manually set POSTGRES_PASSWORD
 + Non-supported method to run on Port 80:
 `# nohup flask run --host=0.0.0.0 --port=80 &`
 
-+ Starting up with a certificate:
-`# nohup flask run --host=0.0.0.0 --port=443 --cert ../certs/www.ebullen.co.uk.ca --key ../certs/www.ebullen.co.uk.KEY &
++ Starting up with a certificate:  
+`# nohup flask run --host=0.0.0.0 --port=443 --cert ../certs/www.ebullen.co.uk.ca --key ../certs/www.ebullen.co.uk.KEY &`
 
 
