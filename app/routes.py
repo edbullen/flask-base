@@ -16,6 +16,10 @@ from flask_login import current_user, login_user
 from flask_login import login_required
 from flask_login import logout_user
 
+# Change to add confirm functionality for deletes etc 2019-01-08
+from functools import wraps
+from urllib.parse import urlencode, quote, unquote
+
 from app.models import User
 #from app.models import Post
 
@@ -28,6 +32,19 @@ def index():
 
     return render_template('index.html', title = "Home",form=None )
 
+# Change to add confirm functionality for deletes etc 2019-01-08
+def confirmation_required(desc_fn):
+    def inner(f):
+        @wraps(f)
+        def wrapper(*args, **kwargs):
+            if request.args.get('confirm') != '1':
+                desc = desc_fn()
+                return redirect(url_for('confirm',
+                    desc=desc, action_url=quote(request.url)))
+            return f(*args, **kwargs)
+        return wrapper
+    return inner
+
 
 @app.before_request
 def before_request():
@@ -38,6 +55,20 @@ def before_request():
         if current_user.isAuth == 0 and current_user.isSuper == 0:
             if request.path != url_for('index') and request.path != url_for('logout') :
                 return redirect(url_for('index'))
+
+# Change to add confirm functionality for deletes etc 2019-01-08
+@app.route('/confirm')
+def confirm():
+    desc = request.args['desc']
+    action_url = unquote(request.args['action_url'])
+    mtext = action_url.split("/")
+    # Assumes URL is in format Action / Item
+    message = mtext[-2].replace("_"," ") + " " + mtext[-1]
+
+    return render_template('confirm.html', desc=desc, action_url=action_url, message=message.capitalize())
+# Change to add confirm functionality for deletes etc 2019-01-08
+def you_sure():
+    return "Confirm Action"
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -118,6 +149,24 @@ def edit_profile(username):
         form.isauth.data = user.isAuth
         return render_template('edit_profile.html', title='Edit Profile', form=form)
     return render_template('edit_profile.html', title='Edit Profile', form=form)
+
+# Change to allow deletion of users - 2019-01-08
+@app.route('/delete_user/<username>', methods=['GET','POST'])
+@login_required
+@confirmation_required(you_sure)
+def delete_user(username):
+    user = User.query.filter_by(username = username).first_or_404()
+    datestring = datetime.strftime(user.last_seen, "%A %d %b %Y at %H:%M UTC")
+    confirmed = request.args.get('confirm')
+    page = request.args.get('page', 1, type=int)
+    user = User.query.filter_by(username=username).first_or_404()
+    if current_user.isAdmin == 1 or current_user.isSuper:
+        db.session.delete(user)
+        db.session.commit()
+        flash('Deleted User' + username)
+
+    #return render_template('users.html')
+    return redirect(url_for('users'))
 
 @app.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():

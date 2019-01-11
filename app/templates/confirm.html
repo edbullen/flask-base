@@ -1,0 +1,21 @@
+
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+<h2>{{ desc }}</h2>
+<br>
+<h3> <i>{{ message }} </i><h3>
+<br>
+
+<form action="{{ action_url }}" method="GET">
+    <input type="hidden" name="confirm" value="1" >
+    <input type="submit" value="Yes" class="btn btn-success">
+
+
+    <a href="{{ url_for('index') }}" class="btn btn-danger">Cancel</a>
+
+</form>
+
+{% endblock %}
