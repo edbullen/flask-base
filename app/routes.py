@@ -11,16 +11,20 @@ from app.forms import PostForm  #unused?
 from app.forms import ResetPasswordRequestForm
 from app.forms import ResetPasswordForm
 from app.email import send_password_reset_email
+from app.forms import AddAppData
 
 from flask_login import current_user, login_user
 from flask_login import login_required
 from flask_login import logout_user
+
+from sqlalchemy.exc import IntegrityError
 
 # Change to add confirm functionality for deletes etc 2019-01-08
 from functools import wraps
 from urllib.parse import urlencode, quote, unquote
 
 from app.models import User
+from app.models import AppData
 #from app.models import Post
 
 from datetime import datetime
@@ -211,6 +215,30 @@ def users():
 
     return render_template("users.html", title='Users',
                             users=users.items, next_url=next_url,prev_url=prev_url)
+
+
+@app.route('/add_app_data', methods=['GET', 'POST'])
+@login_required
+def add_app_data():
+    form = AddAppData()
+    appData = AppData() # db model imported from models.py
+    if form.validate_on_submit():
+        appData.item = form.item.data
+        appData.description = form.description.data
+        appData.value = form.value.data
+
+        db.session.add(appData)
+        try:
+            db.session.commit()
+        except IntegrityError as err:
+            flash('ERROR: Data Integrity/Duplicate Error - changes NOT saved.')
+            db.session.rollback()
+            return redirect(url_for('index'))
+        flash('Your changes have been saved.')
+        # return redirect(url_for('edit_profile', username = user.username))
+        return redirect(url_for('index'))
+    return render_template('app_data.html', title='Add Data', form=form)
+
 
 """
 @app.route('/explore')

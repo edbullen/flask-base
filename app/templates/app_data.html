@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+    <h1>Add App Data </h1>
+
+    <form action=""  method="post">
+    <div class="col-md-6">
+        {{ form.hidden_tag() }}
+        {{ wtf.form_field(form.item) }}
+        {{ wtf.form_field(form.description) }}
+        {{ wtf.form_field(form.value ) }}
+
+        <input class="btn btn-primary" type="submit" value="Submit">
+
+    </div>
+    </form>
+
+{% endblock %}

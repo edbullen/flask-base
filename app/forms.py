@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField,PasswordField, BooleanField, SubmitField, HiddenField
+from wtforms import StringField, TextAreaField,PasswordField, BooleanField, SubmitField, HiddenField, DecimalField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 from app.models import User
 
@@ -45,6 +45,12 @@ class EditProfileForm(FlaskForm):
             user = User.query.filter_by(username=self.username.data).first()
             if user is not None:
                 raise ValidationError('Please use a different username.')
+
+class AddAppData(FlaskForm):
+    item = TextAreaField('Item', validators=[Length(min=1, max=64)])
+    description = TextAreaField('Description', validators=[Length(min=1, max=140)])
+    value = DecimalField('Value')
+    submit = SubmitField('Submit')
 
 class PostForm(FlaskForm):
     post = TextAreaField('Say something:', validators=[
