@@ -6,7 +6,7 @@ Built and tested with Python 3.6 and Flask 1.0.2
   
 Python Dependancies listed in ./app/requirements.txt  
 
-Requires PostgreSQL 10.6 database server   
+Requires PostgreSQL 9.5 to 10.6 database server   
 - Install and config assume a local DB server, but a remote service is possible
 
 ## PostgreSQL Setup ##
@@ -17,7 +17,7 @@ Requires PostgreSQL 10.6 database server
 
 `postgres=# CREATE USER <webapp_database_user> WITH PASSWORD '<webapp_database_user_password>';`
 
-`postgres=# GRANT ALL PRIVILEGES ON DATABASE base TO <webapp_database_user>;`
+~~postgres=# GRANT ALL PRIVILEGES ON DATABASE base TO <webapp_database_user>;~~
 
 #### Setup Database Connectivity ####
   
@@ -65,7 +65,7 @@ $ psql --host=localhost -d <webapp_database> -U <webapp_database_user>
 
 Run the following *As the Flask Application UNIX user*  
 
- + `cd flask-base`  
+ + `cd flask`  
  + `. ./env.sh`  
   
 expected output: 
@@ -82,7 +82,7 @@ expected output:
 Mail User/Password requires an email account to use for sending password reset emails
   
   
-#### Install the FLask Linux Libraries ####
+#### Install the Flask Linux Libraries ####
 
 Run the following as the UNIX user `root`:
   
@@ -157,7 +157,10 @@ Please manually set POSTGRES_PASSWORD
 + Non-supported method to run on Port 80:
 `# nohup flask run --host=0.0.0.0 --port=80 &`
 
-+ Starting up with a certificate:  
++ Starting up on port 5432:  
+`$ nohup flask run --host=0.0.0.0 &`
+
++ Starting up with a security certificate on Port 443:  
 `# nohup flask run --host=0.0.0.0 --port=443 --cert ../certs/www.ebullen.co.uk.ca --key ../certs/www.ebullen.co.uk.KEY &`
 
 
